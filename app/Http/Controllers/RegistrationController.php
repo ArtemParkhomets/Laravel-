@@ -15,7 +15,7 @@ class RegistrationController extends Controller
     public function save(Request $request)
         {
         if (Auth::check()){
-            return redirect(route('private'));
+            return redirect(route('home'));
             }
 
         $validate=$request->validate([
@@ -33,7 +33,7 @@ class RegistrationController extends Controller
         $user=User::create($validate);
         if ($user){
             Auth::login($user);
-            return redirect(route('private'));
+            return redirect(route('home'));
         }
 
         return redirect(route('reg_v'))->withErrors([

@@ -17,7 +17,6 @@ Route::get('/', [\App\Http\Controllers\MainController::class,'index'])->name('ho
 Route::get('/categories', [\App\Http\Controllers\MainController::class,'categories'])->name('categories');
 Route::get('/registration', [\App\Http\Controllers\RegistrationController::class, 'reg_v'])->name('reg_v');
 Route::post('/save', [\App\Http\Controllers\RegistrationController::class, 'save'])->name('save_user');
-Route::view('/private', 'private')->middleware('auth')->name('private');
 Route::view('/login','auth/login')->name('login');
 Route::post('/login',[\App\Http\Controllers\LoginController::class, 'login'])->name('login');
 Route::get('/logout', [\App\Http\Controllers\RegistrationController::class, 'logout'])->name('logout');
@@ -31,3 +30,7 @@ Route::get('/admin/products', [\App\Http\Controllers\AdminController::class,'sho
 Route::get('/admin/create', [\App\Http\Controllers\AdminController::class,'createform'])->name('admin.create.product');
 Route::post('/admin/create', [\App\Http\Controllers\AdminController::class,'createproduct'])->name('createproduct');
 Route::get('/filter',[\App\Http\Controllers\FilterController::class,'filter'])->name('filter');
+Route::get('/cart',[\App\Http\Controllers\CartController::class,'index'])->middleware('auth')->name('cart');
+Route::post('/cart/{id}',[\App\Http\Controllers\CartController::class,'addCart'])->middleware('auth')->name('add.cart');
+Route::post('/cart/update/{id}',[\App\Http\Controllers\CartController::class,'editCart'])->middleware('auth')->name('edit.cart');
+

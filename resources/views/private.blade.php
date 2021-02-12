@@ -1,17 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@extends('layouts/header')
+@section('content')
 <body>
-<h1>Это типа личный кабинет пользователя, где нельзя сделать нихуя :)</h1>
+    <div class="container-xxl">
+        <h1>Ваша корзина:</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Удалить из корзины</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($items as $item)
+                <tr>
+                    <th scope="row">{{$item->name}}</th>
+                    <td>{{$item->price}}</td>
+                    <td>
+                        <form method="post" action="{{route('edit.cart', $item->id)}}">
+                            @csrf
+                            <input type="hidden" value="{{$item->id}}">
+                            <input type="number" name="quantity" value="{{$item->quantity}}">
+                            <button type="submit" class="btn btn-primary">Пересчитать</button>
+                        </form>
+                    </td>
+                    <td><a href="">Удалить</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between">
+            <p class="">Итого:</p>
+            <div class="mt-2 "><a class="btn btn-success" href="">Оформить заказ</a></div>
+        </div>
 
-<h2><a class="btn btn-danger" href="{{route('logout')}}">Выйти нахрен отсуда</a></h2>
-
-<h2><a class="btn btn-danger" href="{{route('home')}}">main</a></h2>
+    </div>
 </body>
-</html>
+@endsection

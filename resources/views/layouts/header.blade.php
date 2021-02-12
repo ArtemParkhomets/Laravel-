@@ -13,14 +13,15 @@
         <div class="container-xxl">
             <div class="row nav">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand col-9" href="{{route('home')}}"><h1>Laravel❤</h1></a>
-                    <div class="nav justify-content-center col-3">
+                    <a class="navbar-brand col-8" href="{{route('home')}}"><h1>Laravel❤</h1></a>
+                    <div class="nav justify-content-center col-4">
                         @guest()
                         <a class="nav-link btn btn-success" href="{{route('login')}}">Войти</a>
                         <a class="nav-link" href="{{route('reg_v')}}"> <small>Или зарегистрироваться</small></a>
                         @endguest
                         @auth()
                         <a class="nav-link" href="{{route('logout')}}"><button class="btn btn-danger" type="submit">Выйти из меня</button></a>
+                        <a class="nav-link" href="{{route('cart')}}"><button class="btn btn-warning" type="submit">🛒🛒🛒</button></a>
                         @endauth
                     </div>
                 </nav>

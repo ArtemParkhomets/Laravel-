@@ -43,6 +43,15 @@
                                     <h6 class="card-title">{{$product->category->title}}</h6>
                                     <h6>Цена: {{$product->price}} руб.</h6>
                                     <a href="#" class="btn btn-primary">Подробнее</a>
+                                    <form action="{{route('add.cart', $product->id)}}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$product->id}}">
+                                        @auth()
+                                        <input class="form-control m-1" type="number" name="quantity" value="<?php if(empty(request()->quantity)){echo '1';}else{echo $product->quantity;}?>">
+                                        <button class="btn btn-success" type="submit">Беру!</button>
+                                        @endauth
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
