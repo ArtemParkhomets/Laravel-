@@ -33,4 +33,6 @@ Route::get('/filter',[\App\Http\Controllers\FilterController::class,'filter'])->
 Route::get('/cart',[\App\Http\Controllers\CartController::class,'index'])->middleware('auth')->name('cart');
 Route::post('/cart/{id}',[\App\Http\Controllers\CartController::class,'addCart'])->middleware('auth')->name('add.cart');
 Route::post('/cart/update/{id}',[\App\Http\Controllers\CartController::class,'editCart'])->middleware('auth')->name('edit.cart');
+Route::post('/cart/remove/{id}',[\App\Http\Controllers\CartController::class,'removeCart'])->middleware('auth')->name('remove.cart');
+Route::post('/cart/order/',[\App\Http\Controllers\CartController::class,'createOrder'])->middleware('auth')->name('createOrder.cart');
 

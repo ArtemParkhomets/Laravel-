@@ -21,7 +21,9 @@
                         @endguest
                         @auth()
                         <a class="nav-link" href="{{route('logout')}}"><button class="btn btn-danger" type="submit">Выйти из меня</button></a>
-                        <a class="nav-link" href="{{route('cart')}}"><button class="btn btn-warning" type="submit">🛒🛒🛒</button></a>
+                        <a class="nav-link" href="{{route('cart')}}"><button class="btn btn-warning" type="submit">🛒🛒🛒
+                            <div class="badge bg-danger p-1">{{\Cart::session(auth()->id())->getContent()->count()}}</div>
+                        </button></a>
                         @endauth
                     </div>
                 </nav>

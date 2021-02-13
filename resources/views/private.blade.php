@@ -7,7 +7,7 @@
             <thead>
             <tr>
                 <th scope="col">Название</th>
-                <th scope="col">Цена</th>
+                <th scope="col">Цена за шт.</th>
                 <th scope="col">Количество</th>
                 <th scope="col">Удалить из корзины</th>
             </tr>
@@ -20,21 +20,32 @@
                     <td>
                         <form method="post" action="{{route('edit.cart', $item->id)}}">
                             @csrf
-                            <input type="hidden" value="{{$item->id}}">
-                            <input type="number" name="quantity" value="{{$item->quantity}}">
-                            <button type="submit" class="btn btn-primary">Пересчитать</button>
+                            <div class="input-group w-50">
+                                <input type="hidden" value="{{$item->id}}">
+                                <input type="number" min="1" class="form-control" name="quantity" value="{{$item->quantity}}">
+                                <button class="btn btn-outline-secondary" type="submit" >Пересчитать</button>
+                            </div>
                         </form>
                     </td>
-                    <td><a href="">Удалить</a></td>
+                    <td>
+                        <form method="post" action="{{route('remove.cart', $item->id)}}">
+                            @csrf
+                            <input type="hidden" value="{{$item->id}}">
+                            <button class="btn btn-outline-danger" type="submit">Удалить</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        <div class="d-flex justify-content-between">
-            <p class="">Итого:</p>
-            <div class="mt-2 "><a class="btn btn-success" href="">Оформить заказ</a></div>
+        <div>
+            <form method="post" class="d-flex justify-content-between" action="{{route('createOrder.cart')}}">
+                <p class="">Итого: {{\Cart::session(auth()->id())->getTotal()}}</p>
+                <input type="hidden" value="">
+                <button class="btn btn-success " type="submit">Оформить заказ</button>
+            </form>
         </div>
-
     </div>
 </body>
+    @php dd(\Cart::session(auth()->id())->getContent()) @endphp
 @endsection

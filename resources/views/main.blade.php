@@ -47,7 +47,7 @@
                                         @csrf
                                         <input type="hidden" value="{{$product->id}}">
                                         @auth()
-                                        <input class="form-control m-1" type="number" name="quantity" value="<?php if(empty(request()->quantity)){echo '1';}else{echo $product->quantity;}?>">
+                                        <input class="form-control m-1" type="number" min="1" name="quantity" value="<?php if(empty(request()->quantity)){echo '1';}else{echo $product->quantity;}?>">
                                         <button class="btn btn-success" type="submit">Беру!</button>
                                         @endauth
                                     </form>
