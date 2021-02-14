@@ -13,12 +13,15 @@ class LoginController extends Controller
         if(Auth::attempt($fields)){
             $isadmin=Auth::user()->is_admin;
             if ($isadmin==1){
-                return redirect('admin/home');
+
+                return redirect(route('admin.products'));
             }
+
             return redirect(route('cart'));
         }
+
         return redirect(route('login'))->withErrors([
-            'formError'=>'Чё сска пароль забыл?)'
+            'formError'=>'Неправильный пароль или Email'
         ]);
     }
 }

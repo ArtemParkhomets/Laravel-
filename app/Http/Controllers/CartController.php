@@ -31,7 +31,7 @@ class CartController extends Controller
 
         return view('private',compact('items'));
     }
-    public function editCart(Request $request, $id)
+    public function editCart(Request $request, int $id)
     {
         \Cart::session(auth()->id())->update($id,[
             'quantity' => array(
@@ -49,29 +49,29 @@ class CartController extends Controller
     public function createOrder(Request $request)
     {
         $items = \Cart::session(auth()->id())->getContent();
+        // хер знает как до этих итемсов добраться) подскажи )
+        if (empty($items)){
+            return redirect(route('cart'))->withErrors(['cart'=>'Нужно что-то положить в корзинку, негодник']);
+        }
         $userId=Auth::id();
         $totalPrice=\Cart::session(auth()->id())->getTotal();
-
-
-      $order= Order::create([
+        $order= Order::create([
         'user_id'=>$userId,
         'status'=>'В обработке',
         'totalPrice'=>$totalPrice,
-    ]);
-      $orderId=$order->id;
-      //dd($orderId);
+            ]);
+        $orderId=$order->id;
         foreach ($items as $item){
-            $orderProducts=OrderProduct::create([
-                'order_id'=>$orderId,
-                'product_id'=>$item->id,
-                'product_price'=>$item->price,
-                'product_quantity'=>$item->quantity,
-
+        $orderProducts=OrderProduct::create([
+            'order_id'=>$orderId,
+            'product_id'=>$item->id,
+            'product_price'=>$item->price,
+            'product_quantity'=>$item->quantity,
             ]);
         }
-
         \Cart::session(auth()->id())->clear();
-      return back();
+
+        return back();
     }
 
 }

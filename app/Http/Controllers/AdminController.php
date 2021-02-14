@@ -98,4 +98,25 @@ class AdminController extends Controller
 
         return view('admin/adminproducts', compact('result'));
     }
+    public function deleteprod(int $id)
+    {
+        Product::find($id)->delete();
+
+        return back();
+    }
+    public function editprod(int $id)
+    {
+        $categoryList= DB::table('categories')->get();
+        $prod=Product::find($id);
+
+        return view('admin/adminupdateproduct', compact(['prod','categoryList']));
+    }
+    public function updateprod(Request $req, int $id)
+    {
+        $prod=Product::find($id);
+        $data=$req->only('title', 'description', 'price', 'categories_id');
+        $prod->update($data);
+
+        return redirect(route('admin.products'));
+    }
 }

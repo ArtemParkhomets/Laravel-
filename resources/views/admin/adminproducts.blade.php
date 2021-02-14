@@ -14,7 +14,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr>@foreach($result as $prod)
+            @foreach($result as $prod)
+                <tr>
                 <th scope="row">{{$prod->id}}</th>
                 <td>{{$prod->title}}</td>
                 <td>{{$prod->description}}</td>
@@ -22,28 +23,26 @@
                 <td>{{$prod->category->title}}</td>
                 <td><div class="row">
                         <div class="col-6">
-{{--                            <form action="{{url('/')}}" method="post">--}}
-{{--                                @method('POST')--}}
-{{--                                @csrf--}}
+                            <form action="{{url('/admin/delete', $prod->id)}}" method="post">
+                                @method('POST')
+                                @csrf
                                 <button type="submit" class="btn btn-danger">☠</button>
-{{--                            </form>--}}
+                            </form>
                         </div>
                         <div class="col-6">
-{{--                            <form action="{{route('admin.edit')}}" method="GET">--}}
+                            <form action="{{route('edit.prod', $prod->id)}}" method="GET">
                                 <button type="submit" class="btn btn-primary">✎</button>
-{{--                            </form>--}}
+                            </form>
                         </div>
                     </div>
                 </td>
-            </tr>@endforeach
+            </tr>
+            @endforeach
             </tbody>
         </table>
-
     </div>
 </div>
-    <div class="container-xxl">
-        {{$result->links()}}
-    </div>
-
-
+<div class="container-xxl">
+    {{$result->links()}}
+</div>
 @endsection

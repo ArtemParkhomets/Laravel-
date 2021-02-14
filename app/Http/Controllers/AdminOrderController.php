@@ -11,12 +11,10 @@ class AdminOrderController extends Controller
 {
     public function index()
     {
-        $orders=Order::all();
         $ordersInProcess=Order::where('status','В обработке')->with('user')->get();
         $ordersSent=Order::where('status','Отправлен')->with('user')->get();
-        $ordersDelivered=Order::where('status','Доставлен')->with('user')->get();
 
-        return view('admin/adminOrders', compact(['orders','ordersInProcess','ordersSent','ordersDelivered']));
+        return view('admin/adminOrders', compact(['ordersInProcess','ordersSent']));
     }
     public function sentOrder(int $id)
     {
@@ -24,14 +22,15 @@ class AdminOrderController extends Controller
         $order->status=('Отправлен');
         $order->update();
 
-
         return back();
     }
-    public function seeOrder(int $id)
+    public function seeOrder(int $id, int $totalPrice)
     {
+        $orderId=$id;
+        $total=$totalPrice;
         $order=OrderProduct::find($id)->with('product')->get();
 
-        //dd($order);
-        return view('admin/seeorder', compact('order'));
+        return view('admin/seeorder', compact(['order','orderId','total']));
     }
+
 }

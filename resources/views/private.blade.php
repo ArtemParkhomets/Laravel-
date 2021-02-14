@@ -45,6 +45,9 @@
                 <button class="btn btn-success " type="submit">Оформить заказ</button>
             </form>
         </div>
+        @error('cart')
+        <div class="alert alert-danger mt-3">{{$message}}</div>
+        @enderror
     </div>
 </body>
 @endsection

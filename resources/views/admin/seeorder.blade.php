@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-xxl">
         <table class="table">
-            <p class="mt-2">Заказ № </p>
+            <h3 class="mt-2">Заказ № {{$orderId}}</h3>
             <thead>
             <tr>
                 <th scope="col">Название</th>
@@ -20,7 +20,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="d-flex justify-content-between">
+            <p class="">Итого: {{$total}}</p>
+            <a class="btn btn-success" href="{{route('admin.orders')}}">Назад</a>
+        </div>
     </div>
-
-
 @endsection

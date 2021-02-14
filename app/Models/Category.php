@@ -14,8 +14,4 @@ class Category extends Model
         'title_slug',
     ];
     public $timestamps = false;
-    public function product()
-    {
-       //return $this->hasMany(Product::class);
-    }
 }
