@@ -27,7 +27,7 @@ class MainController extends Controller
         if($request->filled('search')){
             $productsQuery->where('title','like', '%'.$request->search.'%');
         }
-        $columns=['id', 'title', 'description', 'price', 'new_price', 'categories_id',];
+        $columns=['id', 'title', 'description', 'price', 'categories_id',];
         $products=$productsQuery->select($columns)->with('category')->paginate(6);
         Paginator::useBootstrap();
         $categories=Category::select(['title','id'])->get();

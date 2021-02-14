@@ -14,11 +14,14 @@ class Product extends Model
         'description',
         'title_slug',
         'price',
-        'new_price',
         'categories_id',
     ];
     public function category()
     {
         return $this->belongsTo(Category::class, 'categories_id','id');
+    }
+    public function order()
+    {
+        return $this->belongsTo(OrderProduct::class);
     }
 }

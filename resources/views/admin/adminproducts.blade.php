@@ -9,7 +9,6 @@
                 <th scope="col">Название</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Цена</th>
-                <th scope="col">Новая цена</th>
                 <th scope="col">Категория</th>
                 <th scope="col">Действия</th>
             </tr>
@@ -20,7 +19,6 @@
                 <td>{{$prod->title}}</td>
                 <td>{{$prod->description}}</td>
                 <td>{{$prod->price}}</td>
-                <td>{{$prod->new_price}}</td>
                 <td>{{$prod->category->title}}</td>
                 <td><div class="row">
                         <div class="col-6">

@@ -23,7 +23,7 @@
                             <div class="input-group w-50">
                                 <input type="hidden" value="{{$item->id}}">
                                 <input type="number" min="1" class="form-control" name="quantity" value="{{$item->quantity}}">
-                                <button class="btn btn-outline-secondary" type="submit" >Пересчитать</button>
+                                <button class="btn btn-outline-secondary" type="submit" >Ok</button>
                             </div>
                         </form>
                     </td>
@@ -40,12 +40,11 @@
         </table>
         <div>
             <form method="post" class="d-flex justify-content-between" action="{{route('createOrder.cart')}}">
+                @csrf
                 <p class="">Итого: {{\Cart::session(auth()->id())->getTotal()}}</p>
-                <input type="hidden" value="">
                 <button class="btn btn-success " type="submit">Оформить заказ</button>
             </form>
         </div>
     </div>
 </body>
-    @php dd(\Cart::session(auth()->id())->getContent()) @endphp
 @endsection

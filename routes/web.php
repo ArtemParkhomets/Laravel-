@@ -31,8 +31,11 @@ Route::get('/admin/create', [\App\Http\Controllers\AdminController::class,'creat
 Route::post('/admin/create', [\App\Http\Controllers\AdminController::class,'createproduct'])->name('createproduct');
 Route::get('/filter',[\App\Http\Controllers\FilterController::class,'filter'])->name('filter');
 Route::get('/cart',[\App\Http\Controllers\CartController::class,'index'])->middleware('auth')->name('cart');
-Route::post('/cart/{id}',[\App\Http\Controllers\CartController::class,'addCart'])->middleware('auth')->name('add.cart');
+Route::post('/cart/add/{id}',[\App\Http\Controllers\CartController::class,'addCart'])->middleware('auth')->name('add.cart');
 Route::post('/cart/update/{id}',[\App\Http\Controllers\CartController::class,'editCart'])->middleware('auth')->name('edit.cart');
 Route::post('/cart/remove/{id}',[\App\Http\Controllers\CartController::class,'removeCart'])->middleware('auth')->name('remove.cart');
-Route::post('/cart/order/',[\App\Http\Controllers\CartController::class,'createOrder'])->middleware('auth')->name('createOrder.cart');
+Route::post('/cart/order',[\App\Http\Controllers\CartController::class,'createOrder'])->middleware('auth')->name('createOrder.cart');
+Route::get('admin/orders',[\App\Http\Controllers\AdminOrderController::class, 'index'])->middleware('auth')->name('admin.orders');
+Route::post('/admin/sent/{id}', [\App\Http\Controllers\AdminOrderController::class,'sentOrder'])->middleware('auth')->name('sent.order');
+Route::get('/admin/see/{id}', [\App\Http\Controllers\AdminOrderController::class,'seeOrder'])->middleware('auth')->name('see.order.details');
 

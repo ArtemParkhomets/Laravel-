@@ -18,7 +18,7 @@
                     <a class="navbar-brand" href="{{route('admin.products')}}">Товары</a>
                     <a class="navbar-brand" href="{{route('admin.categories')}}">Категории</a>
                     <a class="navbar-brand" href="{{route('home')}}">Пользователи</a>
-                    <a class="navbar-brand" href="{{route('home')}}">Заказы</a>
+                    <a class="navbar-brand" href="{{route('admin.orders')}}">Заказы</a>
                     <a class="navbar-brand" href="{{route('logout')}}">Выйти</a>
                 </div>
             </nav>

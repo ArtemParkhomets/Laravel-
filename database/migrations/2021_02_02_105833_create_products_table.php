@@ -20,7 +20,6 @@ class CreateProductsTable extends Migration
             $table->string('title_slug');
             $table->text('description')->nullable();
             $table->double('price');
-            $table->double('new_price')->nullable();
             $table->integer('categories_id')->nullable();
         });
     }
