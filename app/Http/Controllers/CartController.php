@@ -25,6 +25,7 @@ class CartController extends Controller
 
         return back();
     }
+
     public function index()
     {
         $items = \Cart::session(auth()->id())->getContent()->sortBy('id');
@@ -53,13 +54,19 @@ class CartController extends Controller
         if (empty($items)){
             return redirect(route('cart'))->withErrors(['cart'=>'Нужно что-то положить в корзинку, негодник']);
         }
-        $userId=Auth::id();
+        $userId=auth()->id();
         $totalPrice=\Cart::session(auth()->id())->getTotal();
-        $order= Order::create([
-        'user_id'=>$userId,
-        'status'=>'В обработке',
-        'totalPrice'=>$totalPrice,
+
+        try {
+            $order= Order::create([
+                'user_id'=>$userId,
+                'status'=>'В обработке',
+                'totalPrice'=>$totalPrice,
             ]);
+        } catch (\Throwable $exception) {
+            redirect(route('cart'))->withErrors(['cart' => 'другая ошибка']);
+        }
+
         $orderId=$order->id;
         foreach ($items as $item){
         $orderProducts=OrderProduct::create([

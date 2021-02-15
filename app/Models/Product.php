@@ -16,10 +16,12 @@ class Product extends Model
         'price',
         'categories_id',
     ];
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'categories_id','id');
     }
+
     public function order()
     {
         return $this->belongsTo(OrderProduct::class);

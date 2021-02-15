@@ -20,15 +20,15 @@ Route::view('/login','auth/login')->name('login');
 Route::post('/login',[\App\Http\Controllers\LoginController::class, 'login'])->name('login');
 Route::get('/logout', [\App\Http\Controllers\RegistrationController::class, 'logout'])->name('logout');
 Route::group(['middleware'=>['auth'=>'admin'], 'prefix'=>'admin'],function (){
-    Route::post('/home/create_category',[\App\Http\Controllers\AdminController::class,'create_category'])->name('create_category');
+    Route::post('/home/create_category',[\App\Http\Controllers\AdminController::class,'createCategory'])->name('create_category');
     Route::get('/categories',[\App\Http\Controllers\AdminController::class,'categories'])->name('admin.categories');
     Route::get('/products', [\App\Http\Controllers\AdminController::class,'showAllProducts'])->name('admin.products');
     Route::delete('/{id}',[\App\Http\Controllers\AdminController::class,'delete'])->name('admin.delete');
     Route::get('/categories',[\App\Http\Controllers\AdminController::class,'categories'])->name('admin.categories');
     Route::get('/{id}/update', [\App\Http\Controllers\AdminController::class, 'edit'])->name('admin.edit');
     Route::patch('/{id}', [\App\Http\Controllers\AdminController::class,'update'])->name('update.category');
-    Route::get('/create', [\App\Http\Controllers\AdminController::class,'createform'])->name('admin.create.product');
-    Route::post('/create', [\App\Http\Controllers\AdminController::class,'createproduct'])->name('createproduct');
+    Route::get('/create', [\App\Http\Controllers\AdminController::class,'createForm'])->name('admin.create.product');
+    Route::post('/create', [\App\Http\Controllers\AdminController::class,'createProduct'])->name('createproduct');
     Route::get('/orders',[\App\Http\Controllers\AdminOrderController::class, 'index'])->name('admin.orders');
     Route::post('/sent/{id}', [\App\Http\Controllers\AdminOrderController::class,'sentOrder'])->middleware('auth')->name('sent.order');
     Route::post('/delete/{id}', [\App\Http\Controllers\AdminController::class,'deleteprod'])->name('delete.prod');

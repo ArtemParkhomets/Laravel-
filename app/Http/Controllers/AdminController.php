@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -18,22 +19,19 @@ class AdminController extends Controller
 
     public function categories()
     {
-       $categoryList= DB::table('categories')->paginate(4);
+       $categoryList = DB::table('categories')->paginate(4);
        Paginator::useBootstrap();
 
-       return view('admin/admincategories',compact('categoryList'));
+       return view('admin/categories',compact('categoryList'));
     }
 
-    public function create_category(Request $req)
+    public function createCategory(CreateCategoryRequest $req)
     {
-       $validate=$req->validate([
-           'title'=>'max:100|required',
-           'description'=>'max:255|required'
-       ]);
-       if(empty($validate['title_slug'])){
-           $validate['title_slug']=Str::slug($validate['title']);
+       if (empty($validate['title_slug'])) {
+           $validate['title_slug'] = Str::slug($req->title);
        }
-       $category=Category::create($validate);
+
+       Category::create($validate);
 
        return redirect(route('admin.categories'));
     }
@@ -44,79 +42,89 @@ class AdminController extends Controller
 
        return redirect(route('admin.categories'));
     }
+
     public function edit(int $id)
     {
         $cat_edit = Category::find($id);
 
         return view('admin/admincategoryedit', compact('cat_edit'));
     }
+
     public function update(Request $req, int $id)
     {
-        $cat=Category::find($id);
-        $data=$req->only('title', 'description');
+        $cat = Category::find($id);
+        $data = $req->only('title', 'description');
         $cat->update($data);
 
         return redirect()->route('admin.categories');
     }
+
     public function products()
     {
-        $productList= DB::table('products')->paginate();
+        $productList = DB::table('products')->paginate();
         Paginator::useBootstrap();
 
         return view('admin/adminproducts', compact('productList'));
     }
-    public function createform()
+
+    public function createForm()
     {
-        $categoryList= DB::table('categories')->get();
+        $categoryList = DB::table('categories')->get();
 
         return view('admin/admincreateproduct', compact('categoryList'));
     }
-    public function createproduct(Request $req)
+
+    public function createProduct(Request $req)
     {
-        $validate=$req->validate([
+        $validate = $req->validate([
             'title'=>'max:100|required',
             'description'=>'max:255|required',
             'price'=>'required',
             'categories_id'=>'required',
         ]);
-        if(empty($validate['title_slug'])){
-            $validate['title_slug']=Str::slug($validate['title']);
+
+        if (empty($validate['title_slug'])) {
+            $validate['title_slug'] = Str::slug($validate['title']);
         }
-        $product=Product::create($validate);
+
+        Product::create($validate);
 
         return redirect(route('admin.products'));
     }
     public function showAllProducts()
     {
-        $columns=[
+        $columns = [
             'title',
             'id',
             'price',
             'categories_id',
             'description',
         ];
-        $result= Product::select($columns)->with(['category'])->paginate();
+        $result = Product::select($columns)->with(['category'])->paginate();
         Paginator::useBootstrap();
 
         return view('admin/adminproducts', compact('result'));
     }
+
     public function deleteprod(int $id)
     {
         Product::find($id)->delete();
 
         return back();
     }
+
     public function editprod(int $id)
     {
-        $categoryList= DB::table('categories')->get();
-        $prod=Product::find($id);
+        $categoryList = DB::table('categories')->get();
+        $prod         = Product::find($id);
 
-        return view('admin/adminupdateproduct', compact(['prod','categoryList']));
+        return view('admin/adminupdateproduct', compact('prod','categoryList'));
     }
+
     public function updateprod(Request $req, int $id)
     {
-        $prod=Product::find($id);
-        $data=$req->only('title', 'description', 'price', 'categories_id');
+        $prod = Product::find($id);
+        $data = $req->only('title', 'description', 'price', 'categories_id');
         $prod->update($data);
 
         return redirect(route('admin.products'));

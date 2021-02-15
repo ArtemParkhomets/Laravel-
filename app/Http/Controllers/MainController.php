@@ -31,9 +31,9 @@ class MainController extends Controller
         $products=$productsQuery->select($columns)->with('category')->paginate(6);
         Paginator::useBootstrap();
         $categories=Category::select(['title','id'])->get();
-        unset($productsQuery);
+//        unset($productsQuery);
 
-        return view('main', compact(['categories','products']));
+        return view('main', compact('categories','products'));
     }
     public function categories()
     {
