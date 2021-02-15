@@ -15,6 +15,7 @@ class AdminController extends Controller
     {
         return view('admin.home');
     }
+
     public function categories()
     {
        $categoryList= DB::table('categories')->paginate(4);
@@ -22,6 +23,7 @@ class AdminController extends Controller
 
        return view('admin/admincategories',compact('categoryList'));
     }
+
     public function create_category(Request $req)
     {
        $validate=$req->validate([
