@@ -54,31 +54,32 @@ class CartController extends Controller
         if (empty($items)){
             return redirect(route('cart'))->withErrors(['cart'=>'Нужно что-то положить в корзинку, негодник']);
         }
-        $userId=auth()->id();
-        $totalPrice=\Cart::session(auth()->id())->getTotal();
+        $userId     = auth()->id();
+        $totalPrice = \Cart::session(auth()->id())->getTotal();
 
         try {
-            $order= Order::create([
-                'user_id'=>$userId,
-                'status'=>'В обработке',
-                'totalPrice'=>$totalPrice,
+            $order = Order::create([
+                'user_id'   => $userId,
+                'status'    => 'В обработке',
+                'totalPrice'=> $totalPrice,
             ]);
         } catch (\Throwable $exception) {
             redirect(route('cart'))->withErrors(['cart' => 'другая ошибка']);
         }
 
-        $orderId=$order->id;
-        foreach ($items as $item){
-        $orderProducts=OrderProduct::create([
-            'order_id'=>$orderId,
-            'product_id'=>$item->id,
-            'product_price'=>$item->price,
-            'product_quantity'=>$item->quantity,
+//        $orderId=$order->id;
+        foreach ($items as $item) {
+            $order->orderProducts()->create([
+                'product_id'       => $item->id,
+                'product_price'    => $item->price,
+                'product_quantity' => $item->quantity,
             ]);
         }
+
+        DB::table('order_products')->insert($orderProduct);
+
         \Cart::session(auth()->id())->clear();
 
         return back();
     }
-
 }

@@ -16,10 +16,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->text('user_id');
-            $table->timestamps();
+            $table->string('status', 20)->default('В обработке');
+            $table->double('total_price');
             $table->softDeletes();
-            $table->text('status')->default('В обработке');
-            $table->double('totalPrice');
+            $table->timestamps();
 
         });
     }
