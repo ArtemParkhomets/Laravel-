@@ -1,4 +1,4 @@
-@extends('admin/adminlayout')
+@extends('admin.layout')
 @section('content')
     <div class="container-xxl mt-5">
         <div class="row">
@@ -20,7 +20,7 @@
                         <td>{{$cat->description}}</td>
                         <td><div class="row">
                                 <div class="col-6">
-                                    <form action="{{url('/'.$cat->id)}}" method="post">
+                                    <form action="{{route('admin.delete', $cat->id)}}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger">☠</button>

@@ -9,11 +9,12 @@ class LoginController extends Controller
 {
     public function login(Request $req)
     {
-        $fields=$req->only('email', 'password');
-        if(Auth::attempt($fields)){
-            $isadmin=Auth::user()->is_admin;
-            if ($isadmin==1){
+        $fields = $req->only('email', 'password');
 
+        if(Auth::attempt($fields)){
+            $isadmin = Auth::user()->is_admin;
+
+            if ($isadmin==1){
                 return redirect(route('admin.products'));
             }
 
@@ -21,7 +22,7 @@ class LoginController extends Controller
         }
 
         return redirect(route('login'))->withErrors([
-            'formError'=>'Неправильный пароль или Email'
+            'formError' => 'Неправильный пароль или Email'
         ]);
     }
 }

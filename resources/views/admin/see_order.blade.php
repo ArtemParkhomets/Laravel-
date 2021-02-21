@@ -1,8 +1,8 @@
-@extends('admin/adminlayout')
+@extends('admin.layout')
 @section('content')
     <div class="container-xxl">
         <table class="table">
-            <h3 class="mt-2">Заказ № {{$orderId}}</h3>
+            <h3 class="mt-2">Заказ № {{$id}}</h3>
             <thead>
             <tr>
                 <th scope="col">Название</th>
@@ -21,7 +21,7 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-between">
-            <p class="">Итого: {{$total}}</p>
+            <p class="">Итого: {{$totalPrice}}</p>
             <a class="btn btn-success" href="{{route('admin.orders')}}">Назад</a>
         </div>
     </div>

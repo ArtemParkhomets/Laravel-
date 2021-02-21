@@ -2,49 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistrationRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
-    public function reg_v()
+    public function registerView()
     {
         return view('auth/registration');
     }
-    public function save(Request $request)
+
+    public function save(RegistrationRequest $req)
     {
         if (Auth::check()){
-
             return redirect(route('home'));
         }
-            $validate=$request->validate([
-            'name'=>'required',
-            'email'=>'required|email|unique:users',
-            'password'=>'required',
-            'confirm_password'=>'same:password'
-            ]);
-        if(User::where('email', $validate['email'])->exists()){
+        $user           = new User();
+        $user->name     = $req->input('name');
+        $user->email    = $req->input('name');
+        $user->password = $req->input('name');
+        $user->save();
 
-            return redirect(route('reg_v'))->withErrors([
-            'email'=>'Пользователь с таким email уже существует'
-            ]);
-        }
-        $user=User::create($validate);
         if ($user){
             Auth::login($user);
 
             return redirect(route('home'));
         }
 
-            return redirect(route('reg_v'))->withErrors([
-            'formError'=>'Шота не так'
+        return redirect(route('reg_v'))->withErrors([
+            'formError'=>'Что-то пошло не так'
             ]);
     }
-    public function logout()
-        {
-            Auth::logout();
 
-            return redirect(route('home'));
-        }
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect(route('home'));
+    }
 }

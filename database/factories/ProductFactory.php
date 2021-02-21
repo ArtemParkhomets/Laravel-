@@ -24,11 +24,11 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'price' => rand(1,10000),
+            'title'         => $this->faker->word,
+            'description'   => $this->faker->sentence,
+            'price'         => rand(1,10000),
             'categories_id' => rand(1,5),
-            'title_slug'=>Str::slug('title'),
+            'title_slug'    => Str::slug('title'),
         ];
     }
 }

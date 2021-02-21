@@ -12,7 +12,7 @@ class MainController extends Controller
 {
     public function index(Request $request)
     {
-        $productsQuery=Product::query();
+        $productsQuery = Product::query();
         if($request->filled('price_from')){
             $productsQuery->where('price','>=',$request->price_from);
         }
@@ -27,17 +27,17 @@ class MainController extends Controller
         if($request->filled('search')){
             $productsQuery->where('title','like', '%'.$request->search.'%');
         }
-        $columns=['id', 'title', 'description', 'price', 'categories_id',];
-        $products=$productsQuery->select($columns)->with('category')->paginate(6);
+        $columns  = ['id', 'title', 'description', 'price', 'categories_id',];
+        $products = $productsQuery->select($columns)->with('category')->paginate(6);
         Paginator::useBootstrap();
-        $categories=Category::select(['title','id'])->get();
-        unset($productsQuery);
+        $categories = Category::select(['title','id'])->get();
 
-        return view('main', compact(['categories','products']));
+        return view('main', compact('categories','products'));
     }
+
     public function categories()
     {
-        $categoryList= DB::table('categories')->get();
+        $categoryList = DB::table('categories')->get();
 
         return view('categories', compact('categoryList'));
     }

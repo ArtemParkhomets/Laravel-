@@ -1,4 +1,4 @@
-@extends('admin/adminlayout')
+@extends('admin/layout')
 @section('content')
 <body>
     <div class="container-xxl mt-2">
@@ -24,15 +24,15 @@
                     <tbody>
                     @foreach($ordersInProcess as $item)
                     <tr>
-                        <form method="get" action="{{route('see.order.details', [$item->id, $item->totalPrice])}}">
+                        <form method="get" action="{{route('see.order.details', [$item->id, $item->total_price])}}">
                             <input type="hidden" value="{{$item->id}}">
-                            <input type="hidden" value="{{$item->totalPrice}}">
+                            <input type="hidden" value="{{$item->total_price}}">
                             <th scope="row"><button type="submit" class="btn btn-link">{{$item->id}}</button></th>
                         </form>
                         <td>{{$item->user->name}}</td>
                         <td>{{$item->created_at->format('d/m/Y')}}</td>
                         <td>{{$item->updated_at->format('d/m/Y')}}</td>
-                        <td>{{$item->totalPrice}}</td>
+                        <td>{{$item->total_price}}</td>
                         <td>
                             <form action="{{route('sent.order',$item->id)}}" method="post">
                                 @csrf
@@ -63,7 +63,7 @@
                             <td>{{$item->user->name}}</td>
                             <td>{{$item->created_at}}</td>
                             <td>{{$item->updated_at}}</td>
-                            <td>{{$item->totalPrice}}</td>
+                            <td>{{$item->total_price}}</td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -15,12 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->text('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('status', 50)->default('В обработке');
+            $table->double('total_price');
             $table->timestamps();
-            $table->softDeletes();
-            $table->text('status')->default('В обработке');
-            $table->double('totalPrice');
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
