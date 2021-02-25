@@ -11,10 +11,10 @@ class LoginController extends Controller
     {
         $fields = $req->only('email', 'password');
 
-        if(Auth::attempt($fields)){
+        if (Auth::attempt($fields)) {
             $isadmin = Auth::user()->is_admin;
 
-            if ($isadmin==1){
+            if ($isadmin == 1) {
                 return redirect(route('admin.products'));
             }
 

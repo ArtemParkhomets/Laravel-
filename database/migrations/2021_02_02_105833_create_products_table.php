@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('title_slug');
             $table->text('description')->nullable();
             $table->double('price');
-            $table->unsignedBigInteger('categories_id')->unsigned();
+            $table->unsignedBigInteger('categories_id');
             $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

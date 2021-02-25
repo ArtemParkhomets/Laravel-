@@ -1,6 +1,5 @@
 @extends('layouts/header')
 @section('content')
-
     <div class="container-xxl">
         <div class="row">
             <div class="col-3 mt-2 bg-light">
@@ -36,7 +35,6 @@
                     @foreach($products as $product)
                     <div class="col-4">
                         <div class="card mt-2">
-                            <img src="..." class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{$product->title}}</h5>
                                 <p class="card-text">{{$product->description}}</p>

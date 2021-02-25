@@ -15,7 +15,7 @@ class RegistrationController extends Controller
 
     public function save(RegistrationRequest $req)
     {
-        if (Auth::check()){
+        if (Auth::check()) {
             return redirect(route('home'));
         }
         $user           = new User();
@@ -24,14 +24,14 @@ class RegistrationController extends Controller
         $user->password = $req->input('name');
         $user->save();
 
-        if ($user){
+        if ($user) {
             Auth::login($user);
 
             return redirect(route('home'));
         }
 
         return redirect(route('reg_v'))->withErrors([
-            'formError'=>'Что-то пошло не так'
+            'formError' => 'Что-то пошло не так'
             ]);
     }
 

@@ -12,9 +12,9 @@
                         <th scope="col">Действия</th>
                     </tr>
                     </thead>
-                    <tbody class="">
+                    <tbody>
                     @foreach($categoryList as $cat)
-                    <tr class="">
+                    <tr>
                         <th scope="row">{{$cat->id}}</th>
                         <td>{{$cat->title}}</td>
                         <td>{{$cat->description}}</td>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="col-3">
-                <form class="justify-content-center" action="{{route('create_category')}}" method="post">
+                <form class="justify-content-center" action="{{route('create.category')}}" method="post">
                     @method('POST')
                     @csrf
                     <div class="mb-3">

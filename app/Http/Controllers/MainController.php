@@ -13,18 +13,23 @@ class MainController extends Controller
     public function index(Request $request)
     {
         $productsQuery = Product::query();
-        if($request->filled('price_from')){
+
+        if ($request->filled('price_from')) {
             $productsQuery->where('price','>=',$request->price_from);
         }
-        if($request->filled('price_to')){
+
+        if ($request->filled('price_to')) {
             $productsQuery->where('price','<=',$request->price_to);
         }
-        foreach ([$request->categories_id] as $id){
-            if($request->filled('categories_id')){
+
+        foreach ([$request->categories_id] as $id) {
+
+            if ($request->filled('categories_id')) {
                 $productsQuery->whereIn('categories_id',$id);
             }
         }
-        if($request->filled('search')){
+
+        if ($request->filled('search')) {
             $productsQuery->where('title','like', '%'.$request->search.'%');
         }
         $columns  = ['id', 'title', 'description', 'price', 'categories_id',];

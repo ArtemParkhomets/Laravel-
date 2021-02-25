@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-xxl mt-3">
         <div class="row">
-            <form method="post" action="{{route('createproduct')}}">
+            <form method="post" action="{{route('create.product')}}">
                 @method('POST')
                 @csrf
                 <div class="mb-3">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Назначьте цену</span>
-                    <input name="price" placeholder="Цена" type="text" aria-label="Price" class="form-control">
+                    <input name="price" placeholder="Цена" type="number" aria-label="Price" class="form-control">
                 </div>
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupSelect01">Категория</label>
