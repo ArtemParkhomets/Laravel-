@@ -22,11 +22,11 @@ Route::get('/logout', [\App\Http\Controllers\RegistrationController::class, 'log
 Route::group(['middleware'=>['auth'=>'admin'], 'prefix'=>'admin'],function (){
     Route::post('/home/create_category',[\App\Http\Controllers\CategoriesController::class,'create'])->name('create.category');
     Route::get('/categories',[\App\Http\Controllers\CategoriesController::class,'index'])->name('admin.categories');
-    Route::get('/products', [\App\Http\Controllers\ProductController::class,'showAllProducts'])->name('admin.products');
+    Route::get('/products', [\App\Http\Controllers\ProductController::class,'index'])->name('admin.products');
     Route::delete('delete/{id}',[\App\Http\Controllers\CategoriesController::class,'delete'])->name('admin.delete');
     Route::get('/{id}/update', [\App\Http\Controllers\CategoriesController::class, 'edit'])->name('admin.edit');
     Route::patch('/{id}', [\App\Http\Controllers\CategoriesController::class,'update'])->name('update.category');
-    Route::get('/create', [\App\Http\Controllers\ProductController::class,'createForm'])->name('admin.create.product');
+    Route::get('/create', [\App\Http\Controllers\ProductController::class,'cre ateForm'])->name('admin.create.product');
     Route::post('/create', [\App\Http\Controllers\ProductController::class,'create'])->name('create.product');
     Route::get('/orders',[\App\Http\Controllers\OrderController::class, 'index'])->name('admin.orders');
     Route::post('/sent/{id}', [\App\Http\Controllers\OrderController::class,'sent'])->name('sent.order');

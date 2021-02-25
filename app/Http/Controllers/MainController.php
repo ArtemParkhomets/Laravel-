@@ -15,29 +15,29 @@ class MainController extends Controller
         $productsQuery = Product::query();
 
         if ($request->filled('price_from')) {
-            $productsQuery->where('price','>=',$request->price_from);
+            $productsQuery->where('price', '>=', $request->price_from);
         }
 
         if ($request->filled('price_to')) {
-            $productsQuery->where('price','<=',$request->price_to);
+            $productsQuery->where('price', '<=', $request->price_to);
         }
 
         foreach ([$request->categories_id] as $id) {
 
             if ($request->filled('categories_id')) {
-                $productsQuery->whereIn('categories_id',$id);
+                $productsQuery->whereIn('categories_id', $id);
             }
         }
 
         if ($request->filled('search')) {
-            $productsQuery->where('title','like', '%'.$request->search.'%');
+            $productsQuery->where('title', 'like', '%'.$request->search.'%');
         }
-        $columns  = ['id', 'title', 'description', 'price', 'categories_id',];
+        $columns  = ['id', 'title', 'description', 'price', 'categories_id'];
         $products = $productsQuery->select($columns)->with('category')->paginate(6);
         Paginator::useBootstrap();
-        $categories = Category::select(['title','id'])->get();
+        $categories = Category::select(['title', 'id'])->get();
 
-        return view('main', compact('categories','products'));
+        return view('main', compact('categories', 'products'));
     }
 
     public function categories()

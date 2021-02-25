@@ -41,7 +41,7 @@ class ProductController extends Controller
         return redirect(route('admin.products'));
     }
 
-    public function showAllProducts()
+    public function index()
     {
         $columns = [
             'title',
