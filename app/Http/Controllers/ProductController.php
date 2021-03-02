@@ -68,7 +68,7 @@ class ProductController extends Controller
         $categoryList = DB::table('categories')->get();
         $prod         = Product::find($id);
 
-        return view('admin/update_product', compact('prod','categoryList'));
+        return view('admin/update_product', compact('prod', 'categoryList'));
     }
 
     public function update(CreateProductRequest $req, int $id)

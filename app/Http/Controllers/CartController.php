@@ -59,9 +59,9 @@ class CartController extends Controller
         }
 
         $order = Order::create([
-                'user_id'    => auth()->id(),
-                'status'     => 'В обработке',
-                'total_price'=> \Cart::session(auth()->id())->getTotal(),
+                'user_id'     => auth()->id(),
+                'status'      => 'В обработке',
+                'total_price' => \Cart::session(auth()->id())->getTotal(),
             ]);
 
         $orderId = $order->id;

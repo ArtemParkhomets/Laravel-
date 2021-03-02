@@ -16,7 +16,7 @@ class CategoriesController extends Controller
         $categoryList = DB::table('categories')->paginate(4);
         Paginator::useBootstrap();
 
-        return view('admin/categories',compact('categoryList'));
+        return view('admin/categories', compact('categoryList'));
     }
 
     public function create(CreateCategoryRequest $req)
